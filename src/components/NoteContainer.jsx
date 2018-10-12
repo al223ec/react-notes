@@ -24,6 +24,7 @@ class NoteContainer extends Component {
           searchText={searchText}
           onClickNote={onClickNote}
         />
+
         <NoteEditor
           selectedNote={selectedNote}
           onNoteEditorChange={onNoteEditorChange}
