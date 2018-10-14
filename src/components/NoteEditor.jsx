@@ -16,10 +16,12 @@ class NoteEditor extends Component {
   }
 
   render() {
-    const { selectedNote, selectedNote: { timestamp, body } } = this.props;
+    const { selectedNote } = this.props;
     if (!selectedNote) {
       return null;
     }
+    const { timestamp, body } = selectedNote;
+
     return (
       <div className="note-editor">
         <p className="note-editor-info">

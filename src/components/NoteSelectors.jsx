@@ -1,28 +1,30 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import NoteSelector from './NoteSelector';
-import { transformNotes } from '../helpers';
 
-class NoteSelectors extends Component {
-  render() {
-    const { notes, searchText } = this.props;
-    const transformedNotes = transformNotes(notes, searchText);
-    const noteSelectors = transformedNotes.map(note =>
+const handleOnClick = (id, toggleNote) => toggleNote(id);
+const NoteSelectors = ({ notes, toggleNote }) => (
+  <div className="note-selectors">
+    {notes.map(note => (
       <NoteSelector
         key={note.id}
         body={note.body}
         timestamp={note.timestamp}
         id={note.id}
-        selectedNoteId={this.props.selectedNoteId}
-        onClickNote={this.props.onClickNote}
+        selectedNoteId={1}
+        onClickNote={handleOnClick(note.id, toggleNote)}
       />
-    );
+    ))}
+  </div>
+);
 
-    return (
-      <div className="note-selectors">
-        {noteSelectors}
-      </div>
-    );
-  }
-}
+NoteSelectors.propTypes = {
+  notes: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    body: PropTypes.string.isRequired,
+    timestamp: PropTypes.number.isRequired
+  }).isRequired).isRequired,
+  toggleNote: PropTypes.func.isRequired
+};
 
 export default NoteSelectors;

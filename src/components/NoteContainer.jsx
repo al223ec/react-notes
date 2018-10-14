@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import NoteSelectors from './NoteSelectors';
+import VisibleNoteList from '../containers/VisibleNoteList';
 import NoteEditor from './NoteEditor';
 
 
@@ -15,16 +15,9 @@ class NoteContainer extends Component {
     } = this.props;
     const selectedNote = notes.find(note => note.id === selectedNoteId);
 
-    console.log(notes);
     return (
       <div className="note-container">
-        <NoteSelectors
-          notes={notes}
-          selectedNoteId={selectedNoteId}
-          searchText={searchText}
-          onClickNote={onClickNote}
-        />
-
+        <VisibleNoteList />
         <NoteEditor
           selectedNote={selectedNote}
           onNoteEditorChange={onNoteEditorChange}
