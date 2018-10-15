@@ -1,32 +1,42 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { formatTitle, formatTimestamp } from '../helpers';
 
-class NoteSelector extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClickNote = this.handleClickNote.bind(this);
+const onKeyPressHandler = onClick => (e) => {
+  const { keyCode } = e;
+  console.log('onKeyPressHandler->', e);
+  if (keyCode === 13) {
+    onClick();
   }
+};
 
-  handleClickNote() {
-    const { id, onClickNote } = this.props;
-    onClickNote(id);
-  }
+const NoteSelector = ({
+  onClick,
+  body,
+  timestamp,
+  selected,
+}) => (
+  <div
+    className={`note-selector ${selected ? 'active' : ''}`}
+    onClick={onClick}
+    role="button"
+    tabIndex="0"
+    onKeyPress={onKeyPressHandler(onClick)}
+  >
+    <p className="note-selector-title">
+      {formatTitle(body)}
+    </p>
+    <p className="note-selector-timestamp">
+      {formatTimestamp(timestamp)}
+    </p>
+  </div>
+);
 
-  render(){
-    return (
-      <div
-        className={"note-selector " + (this.props.id === this.props.selectedNoteId ? 'active' : '')}
-        onClick={this.handleClickNote}
-      >
-        <p className="note-selector-title">
-          {formatTitle(this.props.body)}
-        </p>
-        <p className="note-selector-timestamp">
-          {formatTimestamp(this.props.timestamp)}
-        </p>
-      </div>
-    );
-  }
-}
+NoteSelector.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  body: PropTypes.string.isRequired,
+  timestamp: PropTypes.number.isRequired,
+  selected: PropTypes.bool.isRequired,
+};
 
 export default NoteSelector;

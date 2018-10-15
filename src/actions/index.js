@@ -19,4 +19,3 @@ export const toggleNote = id => ({
   type: 'TOGGLE_NOTE',
   id
 });
-

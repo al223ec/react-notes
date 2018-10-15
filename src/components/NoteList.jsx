@@ -2,8 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import NoteSelector from './NoteSelector';
 
-const handleOnClick = (id, toggleNote) => toggleNote(id);
-const NoteSelectors = ({ notes, toggleNote }) => (
+const handleOnClick = (id, toggleNote) => () => {
+  console.log('handelOnClick');
+  toggleNote(id);
+};
+const NoteList = ({ notes, selectedNoteId, toggleNote }) => (
   <div className="note-selectors">
     {notes.map(note => (
       <NoteSelector
@@ -11,20 +14,21 @@ const NoteSelectors = ({ notes, toggleNote }) => (
         body={note.body}
         timestamp={note.timestamp}
         id={note.id}
-        selectedNoteId={1}
-        onClickNote={handleOnClick(note.id, toggleNote)}
+        selected={note.id === selectedNoteId}
+        onClick={handleOnClick(note.id, toggleNote)}
       />
     ))}
   </div>
 );
 
-NoteSelectors.propTypes = {
+NoteList.propTypes = {
   notes: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     body: PropTypes.string.isRequired,
     timestamp: PropTypes.number.isRequired
   }).isRequired).isRequired,
+  selectedNoteId: PropTypes.number.isRequired,
   toggleNote: PropTypes.func.isRequired
 };
 
-export default NoteSelectors;
+export default NoteList;

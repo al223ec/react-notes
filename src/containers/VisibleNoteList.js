@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import NoteSelectors from '../components/NoteSelectors';
+import NoteList from '../components/NoteList';
 import { toggleNote } from '../actions';
 
 const getVisibleNotes = (notes, filter) => {
@@ -12,8 +12,11 @@ const getVisibleNotes = (notes, filter) => {
     .sort((a, b) => b.timestamp - a.timestamp);
 };
 
-const mapStateToProps = state => ({
-  notes: getVisibleNotes(state.notes, state.searchFilter)
+// state.notes.notes // rename ?
+// state.notes.selectedNoteId
+const mapStateToProps = ({ notes: { notes, selectedNoteId }, searchFilter }) => ({
+  notes: getVisibleNotes(notes, searchFilter.text),
+  selectedNoteId,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -23,4 +26,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(NoteSelectors);
+)(NoteList);
