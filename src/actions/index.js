@@ -19,3 +19,9 @@ export const toggleNote = id => ({
   type: 'TOGGLE_NOTE',
   id
 });
+
+export const editNote = (id, body) => ({
+  type: 'EDIT_NOTE',
+  note: { id, body },
+  id
+});

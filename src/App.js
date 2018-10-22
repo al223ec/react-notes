@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Toolbar from './components/Toolbar';
-import NoteContainer from './components/NoteContainer';
+import NoteEditorContainer from './containers/NoteEditorContainer';
+import VisibleNoteList from './containers/VisibleNoteList';
 import { transformNotes } from './helpers';
 import './App.css';
 
@@ -88,20 +89,16 @@ class App extends Component {
   }
 
   render() {
-    const { notes, selectedNoteId, searchText } = this.state;
     return (
       <div id="app">
         <Toolbar
           onNewNote={this.handleNewNote}
           onDeleteNote={this.handleDeleteNote}
         />
-        <NoteContainer
-          notes={notes}
-          searchText={searchText}
-          selectedNoteId={selectedNoteId}
-          onClickNote={this.handleClickNote}
-          onNoteEditorChange={this.handleNoteEditorChange}
-        />
+        <div className="note-container">
+          <VisibleNoteList />
+          <NoteEditorContainer />
+        </div>
       </div>
     );
   }

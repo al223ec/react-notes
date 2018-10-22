@@ -27,6 +27,20 @@ const notes = (state = {
           timestamp: Date.now()
         }
       ];
+
+    case 'EDIT_NOTE':
+    console.log(action);
+      const note = {
+        id: action.id,
+        body: action.note.body,
+        timestamp: Date.now()
+      };
+
+      const notes = state.notes.map(n => n.id === action.id ? note : n);
+      return {
+        ...state,
+        notes
+      }
     default:
       return state;
   }

@@ -1,38 +1,21 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import VisibleNoteList from '../containers/VisibleNoteList';
-import NoteEditor from './NoteEditor';
+import NoteEditorContainer from '../containers/NoteEditorContainer';
 
 
-class NoteContainer extends Component {
-  render() {
-    const {
-      notes,
-      onClickNote,
-      selectedNoteId,
-      onNoteEditorChange,
-      searchText,
-    } = this.props;
-    const selectedNote = notes.find(note => note.id === selectedNoteId);
+const NoteContainer = () => (
+  <div className="note-container">
+    <VisibleNoteList />
+    <NoteEditorContainer />
+  </div>
+);
 
-    return (
-      <div className="note-container">
-        <VisibleNoteList />
-        <NoteEditor
-          selectedNote={selectedNote}
-          onNoteEditorChange={onNoteEditorChange}
-        />
-      </div>
-    );
-  }
-}
-
-NoteContainer.propTypes = {
-  notes: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
-    body: PropTypes.string,
-    timestamp: PropTypes.number,
-  })).isRequired,
-};
+// NoteContainer.propTypes = {
+//   notes: PropTypes.arrayOf(PropTypes.shape({
+//     id: PropTypes.number,
+//     body: PropTypes.string,
+//     timestamp: PropTypes.number,
+//   })).isRequired,
+// };
 
 export default NoteContainer;

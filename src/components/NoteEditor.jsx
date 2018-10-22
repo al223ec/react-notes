@@ -1,26 +1,41 @@
 import React, { Component } from 'react';
-
-function formatTimestamp(timestamp) {
-  return new Date(timestamp).toUTCString();
-}
+import PropTypes from 'prop-types';
+import { formatTimestamp } from '../helpers';
 
 class NoteEditor extends Component {
   constructor(props) {
     super(props);
+    const { body } = this.props;
+    this.state = {
+      body,
+    };
+
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { body } = nextProps;
+    this.setState({
+      body,
+    });
+  }
+
   handleChange(event) {
-    const { onNoteEditorChange } = this.props;
-    onNoteEditorChange(event.target.value);
+    const { id, editNote } = this.props;
+    const body = event.target.value;
+    this.setState({
+      body
+    });
+
+    editNote({ id, body });
   }
 
   render() {
-    const { selectedNote } = this.props;
-    if (!selectedNote) {
+    const { id, timestamp } = this.props;
+    if (!id) {
       return null;
     }
-    const { timestamp, body } = selectedNote;
+    const { body } = this.state;
 
     return (
       <div className="note-editor">
@@ -36,5 +51,12 @@ class NoteEditor extends Component {
     );
   }
 }
+
+NoteEditor.propTypes = {
+  id: PropTypes.number.isRequired,
+  body: PropTypes.string.isRequired,
+  timestamp: PropTypes.number.isRequired,
+  editNote: PropTypes.func.isRequired,
+};
 
 export default NoteEditor;

@@ -2,10 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import NoteSelector from './NoteSelector';
 
-const handleOnClick = (id, toggleNote) => () => {
-  console.log('handelOnClick');
-  toggleNote(id);
-};
+const handleOnClick = (id, toggleNote) => () => toggleNote(id);
 const NoteList = ({ notes, selectedNoteId, toggleNote }) => (
   <div className="note-selectors">
     {notes.map(note => (
