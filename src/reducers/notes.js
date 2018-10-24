@@ -7,28 +7,28 @@ const notes = (state = {
   ]
 }, action) => {
   switch (action.type) {
-    case 'SELECTED_NOTE_ID':
-      return state.selectedNoteId;
-    case 'FETCH_NOTE':
-      return state.notes.find(n => n.id === action.id);
-    case 'FETCH_NOTES':
-      return state.notes;
-    case 'TOGGLE_NOTE':
+    case 'TOGGLE_NOTE': {
       return {
         selectedNoteId: action.id,
         notes: state.notes
       };
-    case 'ADD_NOTE':
-      return [
-        ...state.notes,
-        {
-          id: action.id,
-          body: action.body,
-          timestamp: Date.now()
-        }
-      ];
+    }
 
-    case 'EDIT_NOTE':
+    case 'ADD_NOTE': {
+      return {
+        ...state,
+        notes: [
+          ...state.notes,
+          {
+            id: action.id,
+            body: action.body,
+            timestamp: Date.now()
+          }
+        ]
+      };
+    }
+
+    case 'EDIT_NOTE': {
       console.log(action);
       const note = {
         id: action.id,
@@ -36,11 +36,19 @@ const notes = (state = {
         timestamp: Date.now()
       };
 
-      const notes = state.notes.map(n => n.id === action.id ? note : n);
       return {
         ...state,
-        notes
-      }
+        notes: state.notes.map(n => (n.id === action.id ? note : n)),
+      };
+    }
+
+    case 'DELETE_NOTE': {
+      return {
+        ...state,
+        notes: state.notes.filter(n => n.id !== action.id),
+      };
+    }
+
     default:
       return state;
   }
