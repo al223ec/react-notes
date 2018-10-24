@@ -20,6 +20,11 @@ export const toggleNote = id => ({
   id
 });
 
+export const deleteNote = id => ({
+  type: 'DELETE_NOTE',
+  id
+});
+
 export const editNote = (id, body) => ({
   type: 'EDIT_NOTE',
   note: { id, body },

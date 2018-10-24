@@ -29,7 +29,7 @@ const notes = (state = {
       ];
 
     case 'EDIT_NOTE':
-    console.log(action);
+      console.log(action);
       const note = {
         id: action.id,
         body: action.note.body,

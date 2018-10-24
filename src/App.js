@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Toolbar from './components/Toolbar';
 import NoteEditorContainer from './containers/NoteEditorContainer';
 import VisibleNoteList from './containers/VisibleNoteList';
 import { transformNotes } from './helpers';
 import './App.css';
+import ToolbarContainer from './containers/ToolbarContainer';
 
 class App extends Component {
   constructor(props) {
@@ -91,10 +91,7 @@ class App extends Component {
   render() {
     return (
       <div id="app">
-        <Toolbar
-          onNewNote={this.handleNewNote}
-          onDeleteNote={this.handleDeleteNote}
-        />
+        <ToolbarContainer />
         <div className="note-container">
           <VisibleNoteList />
           <NoteEditorContainer />

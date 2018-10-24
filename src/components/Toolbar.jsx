@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Toolbar extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleInput = this.handleInput.bind(this);
+  }
+
   handleInput(event) {
-    this.props.onSearchNote(event.target.value);
+    const { setSearchFilter } = this.props;
+    setSearchFilter(event.target.value);
   }
 
   render() {
+    console.log(this.props);
     return (
       <div className="toolbar">
         <button className="toolbar-button" onClick={this.props.onNewNote}>New</button>
@@ -16,4 +25,10 @@ class Toolbar extends Component {
   }
 }
 
+Toolbar.propTypes = {
+  deleteNote: PropTypes.func.isRequired,
+  setSearchFilter: PropTypes.func.isRequired,
+  addNote: PropTypes.func.isRequired,
+  filter: PropTypes.string,
+};
 export default Toolbar;

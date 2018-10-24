@@ -2,7 +2,6 @@ import React from 'react';
 import VisibleNoteList from '../containers/VisibleNoteList';
 import NoteEditorContainer from '../containers/NoteEditorContainer';
 
-
 const NoteContainer = () => (
   <div className="note-container">
     <VisibleNoteList />
